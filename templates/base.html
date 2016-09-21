@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="{% block description %}{% endblock description %}">
+    <meta name="author" content="Silhouette">
+    <link rel="shortcut icon" href="{% static 'site/icon/favicon.jpg' %}">
+
+    <title>{% block title %}{% include "_brandname.html" %}{% endblock title %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- Custom styles for this site -->
+    {% block styles %}
+        <link href="{% static 'site/css/main.css' %}" rel="stylesheet">
+    {% endblock %}
+
+    <!-- Custom tags for the head tag -->
+    {% block extrahead %}{% endblock extrahead %}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse noBorder" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}">
+                {% block navbar-brand %}
+                    <div>{% include "_brandname.html" %}</div>
+                {% endblock %}
+            </a>
+        </div>
+
+        {% block navbar-menu %}
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    {% block navbar-left %}
+                        {# 显示正式内容的navbar #}
+                    {% endblock navbar-left %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% block navbar-right %}
+                        {# 显示登录&权限的navbar #}
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff %}
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        员工
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="{% url 'home' %}../admin">员工通道</a></li>
+                                        <li><a href="{% url 'account:own' user.email_slug %}">{{ user.name }}的个人中心</a>
+                                        </li>
+                                        <li><a href="{% url 'account:logout' %}?next={{request.path}}">注销</a></li>
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        用户
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        <li><a href="{% url 'account:own' user.email_slug %}">{{ user.name }}的个人中心</a>
+                                        </li>
+                                        <li><a href="{% url 'account:logout' %}?next={{request.path}}">注销</a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    游客
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                                    <li><a href="{% url 'account:login' %}?next={{request.path}}">登录</a></li>
+                                    <li><a href="{% url 'account:register' %}">注册</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+            </div>
+        {% endblock navbar-menu %}
+    </nav>
+{% endblock navbar %}
+
+{% block container %}
+    <div class="container">
+        <div class="starter-template">
+            {% block page %}
+                <h1>this is the main contain</h1>
+            {% endblock page %}
+        </div>
+    </div>
+{% endblock container %}
+
+<!-- Site footer -->
+{% block footer %}
+    <!-- Some social button for contact will do -->
+    {# url未配置 #}
+    <a name="contact"></a>
+    <div class="container">
+        <div class="footer">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>&copy; HUSTCA {% now 'Y' %},HuaZhong University of Science and Technology | All rights reserved.</p>
+                </div>
+                <div class="col-lg-6 text-right">
+                    与我们联系
+                    <a href="http://weibo.com/hustca"><i class="fa fa-facebook"></i> 新浪微博</a> or
+                    <a href="{% static 'site/img/wechat.png' %}"><i class="fa fa-twitter"></i> 官方微信</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock footer %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% block scripts %}
+{% endblock scripts %}
+
+</body>
+</html>

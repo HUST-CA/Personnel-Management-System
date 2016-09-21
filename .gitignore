@@ -1,0 +1,6 @@
+*.pyc
+hustca/secure_settings.py
+db.sqlite3
+.idea/
+staticfiles/
+

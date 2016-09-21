@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ flag }}成功
+{% endblock title %}
+
+{% block description %}
+    {{ flag }}成功
+{% endblock description %}
+
+{% block page %}
+    {% if flag == '邮件发送' %}
+        <h3>对邮箱为{{ email }}的地址发送重置密码链接成功!</h3>
+    {% elif flag == '密码重置' %}
+        <h3>邮箱为{{ email }}的用户密码重置成功!</h3>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock page %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block description %}
+HUSTCA主页
+{% endblock description %}
+
+{% block page %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h1><a href="{% url 'welcome:welcome' %}">加入我们</a></h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <h1>此处应为主页正式内容,请自行添加</h1>
+    <br>
+{% endblock page %}

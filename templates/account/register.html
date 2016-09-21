@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}
+    用户注册
+{% endblock title %}
+
+{% block description %}
+    用户注册
+{% endblock description %}
+
+{% block page %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div style="max-width: 400px;text-align: center;margin: 0 auto">
+        <h1>用户注册</h1>
+        <br>
+        {% crispy form %}
+    </div>
+    <h4>已有账户？点击<a href="{% url 'account:login' %}">这里</a>登录</h4>
+{% endblock page %}
+
+{% block scripts %}
+    <script src="{% static 'site/js/captcha_refresh.js' %}"></script>
+    <script src="{% static 'site/js/preclude_redundant_submit.js' %}"></script>
+{% endblock scripts %}

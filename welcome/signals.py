@@ -13,10 +13,9 @@ import time
 
 @receiver(post_save, sender=models.NewMember)
 def inform(sender, instance, created, **kwargs):
-    print('can run')
     if not created:
         return
-        # send the message only if new member is coming
+    # send the message only if new member is coming
     greet_email_tuple = (
         '计算机协会线上报名',
         '【计算机协会】亲爱的' + instance.name + '同学，你好：\n        我们已经收到了你的报名信息，请耐心等待后续通知消息，谢谢。',
@@ -26,23 +25,23 @@ def inform(sender, instance, created, **kwargs):
 
     messages_template = Template('''【协会招新】有成员线上报名，请注意查看后台。
                         姓名:{{ name }}
-                        性别:{{ sex }}（1为男0为女）
+                        性别:{{ sex }}
                         电话:{{ tel }}
                         邮箱:{{ email }}
                         专业-年级:{{ college }}
                         寝室住址:{{ dormitory }}
-                        部门:{{ department }}
                         自我介绍:{{ introduction }}
                 ''')
+    department_list = [each for each in instance.department.all()]
     context = Context(
         {
             'name': instance.name,
-            'sex': instance.sex,
+            'sex': '男' if instance.sex else '女',
             'tel': instance.tel,
             'email': instance.email,
             'college': instance.college,
             'dormitory': instance.dormitory,
-            'department': instance.department,
+            'department_list': department_list,
             'introduction': instance.introduction,
         }
     )

@@ -26,6 +26,7 @@ class MassEmailSenderThread(threading.Thread):
         self.messages = messages
 
     def run(self):
+        print('sending email to', self.messages[0][3][0])
         send_mass_mail(self.messages)
 
 
@@ -45,6 +46,7 @@ class SMSSenderThread(threading.Thread):
         self.params = params
 
     def run(self):
+        print('sending SMS to', self.params['rec_num'])
         sign = calc_sign.calc_sign(self.params, settings.SECRET)
         self.params['sign'] = sign
         send_sms.send_sms(self.url, self.params)

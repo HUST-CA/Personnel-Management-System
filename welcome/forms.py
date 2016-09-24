@@ -56,7 +56,7 @@ class WelcomeForm(forms.Form):
         label='自我介绍',
         widget=forms.Textarea(),
         required=True,
-        max_length=128,
+        max_length=2000,
     )
 
     captcha = CaptchaField(
@@ -85,9 +85,9 @@ class WelcomeForm(forms.Form):
                         AppendedText('email', '''<span class="glyphicon glyphicon-envelope"></span>''',
                                      placeholder='填写你的邮箱'),
                         AppendedText('college', '''<span class="glyphicon glyphicon-book"></span>''',
-                                     placeholder='按照如"软件工程-15"的格式填写'),
+                                     placeholder='"专业-年级数字",如"软件工程-15"'),
                         AppendedText('dormitory', '''<span class="glyphicon glyphicon-home"></span>''',
-                                     placeholder='如:韵苑-11栋-101'),
+                                     placeholder='"宿舍区-楼栋号-寝室号","韵苑-11栋-101"'),
                         InlineCheckboxes('department'),
                         Field('introduction', placeholder='介绍一下你自己吧~分享一下你的经历和兴趣爱好咯'),
                         Field('captcha'),

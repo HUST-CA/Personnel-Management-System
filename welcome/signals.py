@@ -50,7 +50,7 @@ def inform(sender, instance, created, **kwargs):
         '计算机协会线上报名',
         messages_template.render(context),
         'HUSTCA <info@hustca.com>',
-        ['engineering@hustca.com'],
+        ['info@hustca.com'],
     )
     mass_mail_sender_thread = MassEmailSenderThread(messages=(greet_email_tuple, internal_email_tuple))
     mass_mail_sender_thread.start()

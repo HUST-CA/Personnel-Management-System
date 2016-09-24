@@ -4,7 +4,6 @@ from .models import NewMember
 
 
 class NewMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sex', 'tel', 'email', 'college', 'dormitory', 'department', 'introduction')
     list_filter = ('sex',)
     fieldsets = (
         ('个人信息', {'fields': ('name', 'sex', 'college', 'dormitory')}),

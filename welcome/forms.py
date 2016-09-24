@@ -5,7 +5,7 @@ from account.models import Department
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Field, ButtonHolder, Submit
-from crispy_forms.bootstrap import Tab, TabHolder, AppendedText, InlineRadios
+from crispy_forms.bootstrap import Tab, TabHolder, AppendedText, InlineCheckboxes, InlineRadios
 from captcha.fields import CaptchaField
 
 
@@ -46,11 +46,10 @@ class WelcomeForm(forms.Form):
         max_length=64,
     )
 
-    department = forms.ModelChoiceField(
+    department = forms.ModelMultipleChoiceField(
         label='部门',
         queryset=Department.objects.all(),
-        empty_label=None,
-        required=True,
+        required=False,
     )
 
     introduction = forms.CharField(
@@ -89,7 +88,7 @@ class WelcomeForm(forms.Form):
                                      placeholder='按照如"软件工程-15"的格式填写'),
                         AppendedText('dormitory', '''<span class="glyphicon glyphicon-home"></span>''',
                                      placeholder='如:韵苑-11栋-101'),
-                        InlineRadios('department'),
+                        InlineCheckboxes('department'),
                         Field('introduction', placeholder='介绍一下你自己吧~分享一下你的经历和兴趣爱好咯'),
                         Field('captcha'),
                     )

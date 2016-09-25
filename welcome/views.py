@@ -29,8 +29,8 @@ class WelcomeView(generic.View):
             # can not directly create a object with many-to-many field
             # we must invoke save() method before add the many-to-many field
             messages.add_message(request, messages.SUCCESS, '报名成功,请确认收到短信或邮件！')
-            if '192.168.1.1' in request.META['HTTP_REFERER']:
-                return HttpResponseRedirect('192.168.1.1:5280/?connect=1')
+            if '/?' in request.META['HTTP_REFERER']: # Symbol of portal (ugly)
+                return HttpResponseRedirect('http://192.168.1.1:5280/?connect=1&redirect=http%3A%2F%2Fwww.hustca.com%2F')
             # Redirect to the portal of our router.
             else:
                 return render(request, self.template_name, {'form': form})

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib import messages
-# from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect
 # from django.urls import reverse
 
 from . import forms
@@ -29,9 +29,12 @@ class WelcomeView(generic.View):
             # can not directly create a object with many-to-many field
             # we must invoke save() method before add the many-to-many field
             messages.add_message(request, messages.SUCCESS, '报名成功,请确认收到短信或邮件！')
-            return render(request, self.template_name, {'form': form})
-            # return HttpResponseRedirect(reverse('home'))
-            # TechDepart has no homepage yet.So we should not redirect.
+            if '192.168.1.1' in request.META['HTTP_REFERER']:
+                return HttpResponseRedirect('192.168.1.1:5280/?connect=1')
+            # Redirect to the portal of our router.
+            else:
+                return render(request, self.template_name, {'form': form})
+
         else:
             messages.add_message(request, messages.WARNING, '报名失败，请查看各项后的错误提示。')
             return render(request, self.template_name, {'form': form})

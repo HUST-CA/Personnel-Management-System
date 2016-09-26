@@ -12,6 +12,9 @@ class NewMember(models.Model):
     dormitory = models.CharField(verbose_name='寝室住址', max_length=64)
     department = models.ManyToManyField(Department, verbose_name='部门', blank=True)
     introduction = models.TextField(verbose_name='自我介绍')
+    birth = models.CharField(verbose_name='生日', max_length=16, blank=True, null=True)
+    qq = models.CharField(verbose_name='qq', max_length=16, blank=True, null=True)
+    
 
     def __str__(self):
         return self.name

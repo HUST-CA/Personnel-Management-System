@@ -87,7 +87,7 @@ class WelcomeForm(forms.Form):
                         AppendedText('college', '''<span class="glyphicon glyphicon-book"></span>''',
                                      placeholder='"专业-年级数字",如"软件工程-15"'),
                         AppendedText('dormitory', '''<span class="glyphicon glyphicon-home"></span>''',
-                                     placeholder='"宿舍区-楼栋号-寝室号","韵苑-11栋-101"'),
+                                     placeholder='"宿舍区-楼栋号-寝室号","韵苑-11-101"'),
                         InlineCheckboxes('department'),
                         Field('introduction', placeholder='介绍一下你自己吧~分享一下你的经历和兴趣爱好咯'),
                         Field('captcha'),
@@ -119,7 +119,7 @@ class WelcomeForm(forms.Form):
             raise forms.ValidationError('手机号码应该是11位吧...')
         else:
             return tel
-
+'''
     def clean_college(self):
         college = self.cleaned_data['college']
         try:
@@ -143,3 +143,4 @@ class WelcomeForm(forms.Form):
         except ValueError:
             raise forms.ValidationError('按照格式填咯')
         return dormitory
+'''

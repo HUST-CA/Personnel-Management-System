@@ -44,6 +44,7 @@ def run():
     # 信息从文件offline_member_info.csv中读取！
     # csv请注意如下格式
     # 蛤蛤，男，1999.9.9，15927554193，电磁场-15,847731770，韵苑-23-205，义务维修队-权益部-办公室
+    # windows默认是gbk,要手动encoding='utf-8'
     with open('offline_member_info.csv', encoding='utf-8') as info:
         for line in info.readlines():
             create_new_one(line)

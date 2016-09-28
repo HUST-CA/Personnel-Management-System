@@ -14,7 +14,6 @@ class NewMember(models.Model):
     introduction = models.TextField(verbose_name='自我介绍')
     birth = models.CharField(verbose_name='生日', max_length=16, blank=True, null=True)
     qq = models.CharField(verbose_name='qq', max_length=16, blank=True, null=True)
-    
 
     def __str__(self):
         return self.name
